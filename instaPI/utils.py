@@ -1,6 +1,4 @@
 import requests
-from urllib.parse import urljoin
-import json
 
 BASE_URL = 'https://api.instagram.com/v1'
 
@@ -11,7 +9,7 @@ def get_response_data(method):
     """
     def wrapper(*args, **kwargs):
         response = method(*args, **kwargs)
-        data = json.loads(response.text)['data']
+        data = response.json()['data']
         return data
 
     return wrapper
