@@ -22,7 +22,11 @@ def get_response_data(method):
 
 
 @get_response_data
-def get(access_token, path):
-    url =  '%s%s?access_token=%s' % (BASE_URL, path, access_token)
-    response = requests.get(url)
+def get(access_token, path, **kwargs):
+    url =  '%s%s' % (BASE_URL, path)
+    query_params = {
+            'access_token': access_token
+            }
+    query_params.update(kwargs)
+    response = requests.get(url, params=query_params)
     return response

@@ -48,3 +48,17 @@ class InstaUser:
         for data in medialist:
             media = Media(data)
             yield media
+
+    def recently_liked(self, count=None):
+        """
+        Yields a list of recently liked media objects by the user.
+        Works only if the token is for same user.
+
+        :param count: Count of media to return
+        """
+        medialist = get(self.token,
+                        '/users/self/media/liked',
+                        count=10)
+        for data in medialist:
+            media = Media(data)
+            yield media
