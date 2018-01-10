@@ -1,4 +1,5 @@
 import requests
+from exceptions import exceptions
 
 BASE_URL = 'https://api.instagram.com/v1'
 
@@ -9,6 +10,11 @@ def get_response_data(method):
     """
     def wrapper(*args, **kwargs):
         response = method(*args, **kwargs)
+        if response.status_code == 404:
+            raise exceptions['NotFoundError']()
+        if response.status_code > 300:
+            error = response.json()['meta']
+            raise exceptions[error['error_type']](error['error_message'])
         data = response.json()['data']
         return data
 

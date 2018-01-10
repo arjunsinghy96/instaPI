@@ -38,3 +38,12 @@ class Instagram:
         for data in medialist:
             media = Media(data)
             yield media
+
+    def recently_liked(self):
+        """
+        Returns the recently liked media by the user.
+        """
+        medialist = get(self.token,
+                        '/users/self/media/liked')
+        for data in medialist:
+            yield Media(data)
