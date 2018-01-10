@@ -17,7 +17,7 @@ class Media:
         self.created_time = self._data['created_time']
         self.user = self._data['user']
         self.location = self._data['location']
-        self.image_urls = self._data['images']
+        self.images = self._data['images']
 
     def __repr__(self):
         """
@@ -29,3 +29,24 @@ class Media:
                     self.link,
                     hex(id(self)))
         return ret
+
+    @property
+    def thumbnail(self):
+        """
+        Returns thumbnail url of Media
+        """
+        return self.images['thumbnail']['url']
+
+    @property
+    def low_resolution(self):
+        """
+        Returns low resolution image url
+        """
+        return self.images['low_resolution']['url']
+
+    @property
+    def standard_resolution(self):
+        """
+        Returns standard resolution url of image.
+        """
+        return self.images['standard_resolution']['url']
