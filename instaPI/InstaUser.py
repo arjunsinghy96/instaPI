@@ -62,3 +62,18 @@ class InstaUser:
         for data in medialist:
             media = Media(data)
             yield media
+
+    def search_users(self, query, count=None):
+        """
+        Search for users based on name.
+
+        :param query: The query sting for username
+        :param count: Number of users to return
+        """
+        userslist = get(self.token,
+                        '/users/search',
+                        q=query,
+                        count=count)
+        for data in userslist:
+            user = InstaUser(self.token, data['id'])
+            yield user
